@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Load songs from localStorage or set default songs
 let songs = JSON.parse(localStorage.getItem("songs")) || [
-    { title: "Song 1", src: "assets/song1.mp3" },
-    { title: "Song 2", src: "assets/song2.mp3" }
+    { title: "Song 1", src: "music/song1.mp3" },
+    { title: "Song 2", src: "music/song2.mp3" }
 ];
 
     
