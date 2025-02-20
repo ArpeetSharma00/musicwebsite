@@ -4,26 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Next-Gen Music Player</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="music-container">
-        <h1>🎵 Next-Gen Music Player</h1>
-        <div class="player">
-            <audio id="audio-player" src="assets/song1.mp3"></audio>
-            <div class="controls">
-                <button id="prev"><i>⏮</i></button>
-                <button id="play"><i>▶️</i></button>
-                <button id="next"><i>⏭</i></button>
-            </div>
-            <p id="current-song">Now Playing: Song 1</p>
+    <div class="container">
+        <!-- Left: Search & Suggestions -->
+        <div class="search-section">
+            <input type="text" id="search-bar" placeholder="Search for songs...">
+            <ul id="suggestions" class="suggestions"></ul>
         </div>
-        <ul class="playlist">
-            <li data-src="assets/C:\Users\SSD\Downloads\Nordic Pulse, Kitty Florentine, Kristjan Järvi, Cartoon - On The Break Of Dawn [NCS Release].mp3">🎧 Song 1</li>
-            <li data-src="assets/song2.mp3">🎧 Song 2</li>
-            <li data-src="assets/song3.mp3">🎧 Song 3</li>
-        </ul>
+
+        <!-- Center: Music Player -->
+        <div class="music-container">
+            <h1>🎵 Now Playing</h1>
+            <div class="player">
+                <audio id="audio-player"></audio>
+                <div class="controls">
+                    <button id="prev">⏮</button>
+                    <button id="play">▶️</button>
+                    <button id="next">⏭</button>
+                </div>
+                <p id="current-song">Now Playing: None</p>
+            </div>
+        </div>
+
+        <!-- Right: Search Results -->
+        <div class="results-section">
+            <h2>Search Results</h2>
+            <ul id="search-results" class="playlist"></ul>
+        </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
