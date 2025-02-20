@@ -9,34 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const songUpload = document.getElementById("song-upload");
     const currentSong = document.getElementById("current-song");
 
-    function uploadSong() {
-    const file = songUpload.files[0];
-    if (file) {
-        const songURL = URL.createObjectURL(file);
-        const songTitle = file.name.replace(/\.[^/.]+$/, ""); // Remove file extension
-
-        // Add to song list
-        songs.push({ title: songTitle, src: songURL });
-
-        // Refresh Playlist
-        updatePlaylist();
-    }
-}
-
-// Refresh Playlist UI
-function updatePlaylist() {
-    searchResultsList.innerHTML = "";
-    songs.forEach((song, index) => {
-        const listItem = document.createElement("li");
-        listItem.textContent = song.title;
-        listItem.dataset.index = index;
-        listItem.addEventListener("click", () => changeSong(index));
-        searchResultsList.appendChild(listItem);
-    });
-}
-
-// Load first playlist
-updatePlaylist();
+    
 
     // 🎵 Song List
     const songs = [
@@ -73,6 +46,35 @@ updatePlaylist();
             searchResultsList.appendChild(listItem);
         });
     }
+
+    function uploadSong() {
+    const file = songUpload.files[0];
+    if (file) {
+        const songURL = URL.createObjectURL(file);
+        const songTitle = file.name.replace(/\.[^/.]+$/, ""); // Remove file extension
+
+        // Add to song list
+        songs.push({ title: songTitle, src: songURL });
+
+        // Refresh Playlist
+        updatePlaylist();
+    }
+}
+
+// Refresh Playlist UI
+function updatePlaylist() {
+    searchResultsList.innerHTML = "";
+    songs.forEach((song, index) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = song.title;
+        listItem.dataset.index = index;
+        listItem.addEventListener("click", () => changeSong(index));
+        searchResultsList.appendChild(listItem);
+    });
+}
+
+// Load first playlist
+updatePlaylist();
 
     // 🎵 Play Song
     function playSong() {
