@@ -18,34 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "Song 3", src: "assets/song3.mp3" },
         { title: "Song 4", src: "assets/song4.mp3" }
     ];
-function uploadSong() {
-    const file = songUpload.files[0]; // Get selected file
-    if (file) {
-        const songURL = URL.createObjectURL(file); // Create a playable URL
-        const songTitle = file.name.replace(/\.[^/.]+$/, ""); // Remove file extension
 
-        // Add new song to the playlist
-        songs.push({ title: songTitle, src: songURL });
-
-        // Refresh Playlist UI
-        updatePlaylist();
-    }
-}
-
-// Refresh Playlist UI
-function updatePlaylist() {
-    searchResultsList.innerHTML = "";
-    songs.forEach((song, index) => {
-        const listItem = document.createElement("li");
-        listItem.textContent = song.title;
-        listItem.dataset.index = index;
-        listItem.addEventListener("click", () => changeSong(index));
-        searchResultsList.appendChild(listItem);
-    });
-}
-
-// Load the first playlist
-updatePlaylist();
     let currentIndex = 0;
     let isPlaying = false;
 
@@ -102,6 +75,44 @@ updatePlaylist();
         currentSong.textContent = `Now Playing: ${songs[currentIndex].title}`;
         playSong();
     }
+
+    uploadBtn.addEventListener("click", () => songUpload.click()); // Open file picker when button is clicked
+
+songUpload.addEventListener("change", () => {
+    const file = songUpload.files[0];
+    if (file) {
+        const songURL = URL.createObjectURL(file);
+        const songTitle = file.name.replace(/\.[^/.]+$/, ""); // Remove file extension
+
+        // Add to song list
+        songs.push({ title: songTitle, src: songURL });
+
+        // Update playlist & play the uploaded song
+        updatePlaylist();
+        changeSong(songs.length - 1); // Play the latest uploaded song
+    }
+});
+
+// Function to update playlist UI
+function updatePlaylist() {
+    searchResultsList.innerHTML = "";
+    songs.forEach((song, index) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = song.title;
+        listItem.dataset.index = index;
+        listItem.addEventListener("click", () => changeSong(index));
+        searchResultsList.appendChild(listItem);
+    });
+}
+
+// Function to play the selected song
+function changeSong(index) {
+    audioPlayer.src = songs[index].src;
+    audioPlayer.play();
+}
+
+// Load the initial playlist
+updatePlaylist();
 
     // 🔄 Initialize
     searchBar.addEventListener("input", () => searchSong(searchBar.value));
