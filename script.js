@@ -12,11 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
     function playSong() {
         audioPlayer.play();
         playButton.innerHTML = "⏸";
+        playButton.style.background = "#00ff00";
+        playButton.style.boxShadow = "0 0 10px #00ff00";
     }
 
     function pauseSong() {
         audioPlayer.pause();
         playButton.innerHTML = "▶️";
+        playButton.style.background = "rgba(255, 255, 255, 0.2)";
+        playButton.style.boxShadow = "none";
     }
 
     function togglePlay() {
