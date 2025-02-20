@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchResultsList = document.getElementById("search-results");
     const songUpload = document.getElementById("song-upload");
     const currentSong = document.getElementById("current-song");
+    const uploadBtn = document.getElementById("upload-btn");
 
     
 
