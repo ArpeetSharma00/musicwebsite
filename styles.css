@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #181818;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+.music-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: #282828;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+.controls button {
+    font-size: 24px;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: white;
+}
+.playlist {
+    list-style: none;
+    padding: 0;
+}
+.playlist li {
+    padding: 10px;
+    cursor: pointer;
+    background: #333;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+.playlist li:hover {
+    background: #555;
+}
