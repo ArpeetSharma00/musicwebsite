@@ -20,6 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "Song 4", src: "assets/song4.mp3" }
     ];
 
+    // Load songs from localStorage or set default songs
+let songs = JSON.parse(localStorage.getItem("songs")) || [
+    { title: "Song 1", src: "assets/song1.mp3" },
+    { title: "Song 2", src: "assets/song2.mp3" }
+];
+
     
 
     uploadBtn.addEventListener("click", () => songUpload.click()); // Open file picker when button is clicked
@@ -59,6 +65,9 @@ function changeSong(index) {
 
 // Load the initial playlist
 updatePlaylist();
+
+// Load the playlist when the page loads
+updatePlaylist();    
 
     
 
