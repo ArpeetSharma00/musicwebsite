@@ -12,13 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
 
-    // 🎵 Song List
-    const songs = [
-        { title: "Song 1", src: "assets/song1.mp3" },
-        { title: "Song 2", src: "assets/song2.mp3" },
-        { title: "Song 3", src: "assets/song3.mp3" },
-        { title: "Song 4", src: "assets/song4.mp3" }
-    ];
+   
 
     // Load songs from localStorage or set default songs
 let songs = JSON.parse(localStorage.getItem("songs")) || [
