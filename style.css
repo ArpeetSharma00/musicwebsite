@@ -124,3 +124,22 @@ body {
         margin-bottom: 20px;
     }
 }
+#song-upload {
+    display: none; /* Hide default file input */
+}
+
+button {
+    background: #ff00ff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #ff33ff;
+    box-shadow: 0 0 10px #ff00ff;
+}
