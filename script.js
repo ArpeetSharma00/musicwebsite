@@ -19,8 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "Song 4", src: "assets/song4.mp3" }
     ];
 
-    let currentIndex = 0;
-    let isPlaying = false;
+    
 
     uploadBtn.addEventListener("click", () => songUpload.click()); // Open file picker when button is clicked
 
@@ -59,6 +58,9 @@ function changeSong(index) {
 
 // Load the initial playlist
 updatePlaylist();
+
+    let currentIndex = 0;
+    let isPlaying = false;
 
     // 🎶 Load Suggestions
     function loadSuggestions() {
