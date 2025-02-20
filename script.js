@@ -3,54 +3,78 @@ document.addEventListener("DOMContentLoaded", () => {
     const playButton = document.getElementById("play");
     const prevButton = document.getElementById("prev");
     const nextButton = document.getElementById("next");
-    const playlistItems = document.querySelectorAll(".playlist li");
+    const searchBar = document.getElementById("search-bar");
+    const suggestionsList = document.getElementById("suggestions");
+    const searchResultsList = document.getElementById("search-results");
     const currentSong = document.getElementById("current-song");
 
-    let currentIndex = 0;
-    let isPlaying = false; // Track play state
-    let songs = [...playlistItems].map(item => item.dataset.src);
+    // 🎵 Song List
+    const songs = [
+        { title: "Song 1", src: "assets/song1.mp3" },
+        { title: "Song 2", src: "assets/song2.mp3" },
+        { title: "Song 3", src: "assets/song3.mp3" },
+        { title: "Song 4", src: "assets/song4.mp3" }
+    ];
 
+    let currentIndex = 0;
+    let isPlaying = false;
+
+    // 🎶 Load Suggestions
+    function loadSuggestions() {
+        suggestionsList.innerHTML = "";
+        songs.forEach((song, index) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = song.title;
+            listItem.dataset.index = index;
+            listItem.addEventListener("click", () => searchSong(song.title));
+            suggestionsList.appendChild(listItem);
+        });
+    }
+
+    // 🔍 Search for Songs
+    function searchSong(query) {
+        searchResultsList.innerHTML = "";
+        const filteredSongs = songs.filter(song => song.title.toLowerCase().includes(query.toLowerCase()));
+        filteredSongs.forEach((song, index) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = song.title;
+            listItem.dataset.index = index;
+            listItem.addEventListener("click", () => changeSong(index));
+            searchResultsList.appendChild(listItem);
+        });
+    }
+
+    // 🎵 Play Song
     function playSong() {
         audioPlayer.play();
         playButton.innerHTML = "⏸";
-        playButton.style.background = "#00ff00";
-        playButton.style.boxShadow = "0 0 10px #00ff00";
         isPlaying = true;
     }
 
+    // ⏸ Pause Song
     function pauseSong() {
         audioPlayer.pause();
         playButton.innerHTML = "▶️";
-        playButton.style.background = "rgba(255, 255, 255, 0.2)";
-        playButton.style.boxShadow = "none";
         isPlaying = false;
     }
 
+    // ▶️ Toggle Play/Pause
     function togglePlay() {
-        if (isPlaying) {
-            pauseSong();
-        } else {
-            playSong();
-        }
+        isPlaying ? pauseSong() : playSong();
     }
 
+    // 🔄 Change Song
     function changeSong(index) {
-        if (index < 0) index = songs.length - 1;
-        if (index >= songs.length) index = 0;
         currentIndex = index;
-        audioPlayer.src = songs[currentIndex];
-        currentSong.textContent = `Now Playing: ${playlistItems[currentIndex].textContent}`;
-        playSong(); // Automatically play new song
+        audioPlayer.src = songs[currentIndex].src;
+        currentSong.textContent = `Now Playing: ${songs[currentIndex].title}`;
+        playSong();
     }
 
+    // 🔄 Initialize
+    searchBar.addEventListener("input", () => searchSong(searchBar.value));
     playButton.addEventListener("click", togglePlay);
     prevButton.addEventListener("click", () => changeSong(currentIndex - 1));
     nextButton.addEventListener("click", () => changeSong(currentIndex + 1));
-
-    playlistItems.forEach((item, index) => {
-        item.addEventListener("click", () => changeSong(index));
-    });
-
-    audioPlayer.addEventListener("ended", () => changeSong(currentIndex + 1));
+    loadSuggestions();
 });
-
