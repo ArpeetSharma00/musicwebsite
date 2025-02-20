@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentSong = document.getElementById("current-song");
 
     let currentIndex = 0;
+    let isPlaying = false; // Track play state
     let songs = [...playlistItems].map(item => item.dataset.src);
 
     function playSong() {
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         playButton.innerHTML = "⏸";
         playButton.style.background = "#00ff00";
         playButton.style.boxShadow = "0 0 10px #00ff00";
+        isPlaying = true;
     }
 
     function pauseSong() {
@@ -21,13 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
         playButton.innerHTML = "▶️";
         playButton.style.background = "rgba(255, 255, 255, 0.2)";
         playButton.style.boxShadow = "none";
+        isPlaying = false;
     }
 
     function togglePlay() {
-        if (audioPlayer.paused) {
-            playSong();
-        } else {
+        if (isPlaying) {
             pauseSong();
+        } else {
+            playSong();
         }
     }
 
@@ -37,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentIndex = index;
         audioPlayer.src = songs[currentIndex];
         currentSong.textContent = `Now Playing: ${playlistItems[currentIndex].textContent}`;
-        playSong();
+        playSong(); // Automatically play new song
     }
 
     playButton.addEventListener("click", togglePlay);
@@ -50,3 +53,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     audioPlayer.addEventListener("ended", () => changeSong(currentIndex + 1));
 });
+
