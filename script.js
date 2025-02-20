@@ -59,8 +59,7 @@ function changeSong(index) {
 // Load the initial playlist
 updatePlaylist();
 
-    let currentIndex = 0;
-    let isPlaying = false;
+    
 
     // 🎶 Load Suggestions
     function loadSuggestions() {
