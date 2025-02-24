@@ -5,6 +5,7 @@ body {
     text-align: center;
     background-color: #121212;
     color: white;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 header {
@@ -14,9 +15,9 @@ header {
     background: #1db954;
 }
 
-#searchBar {
+#searchBar, #playlistName {
     padding: 8px;
-    width: 50%;
+    width: 40%;
 }
 
 button {
@@ -24,12 +25,6 @@ button {
     border: none;
     padding: 8px 15px;
     cursor: pointer;
-}
-
-.playlist-container, .artist-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
 }
 
 .playlist, .artist {
@@ -41,4 +36,28 @@ button {
 
 .hidden {
     display: none;
+}
+
+#albumArt {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.controls {
+    margin: 20px 0;
+}
+
+input[type="range"] {
+    width: 80%;
+}
+
+.light-mode {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.light-mode header {
+    background: #ff5e57;
 }
