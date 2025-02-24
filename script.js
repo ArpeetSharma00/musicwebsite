@@ -1,96 +1,52 @@
-const searchBar = document.getElementById("searchBar");
-const resultsList = document.getElementById("resultsList");
-const searchResults = document.getElementById("searchResults");
-const playerSection = document.getElementById("player");
-const songTitle = document.getElementById("songTitle");
-const audioPlayer = document.getElementById("audioPlayer");
-const albumArt = document.getElementById("albumArt");
-const progressBar = document.getElementById("progressBar");
-const timeDisplay = document.getElementById("timeDisplay");
-const lyrics = document.getElementById("lyrics");
-const toggleThemeBtn = document.getElementById("toggleThemeBtn");
-const profileIcon = document.getElementById("profileIcon");
-const profileDropdown = document.getElementById("profileDropdown");
+// Handle login
+function login() {
+    document.getElementById("auth-container").classList.add("hidden");
+    document.getElementById("main-container").classList.remove("hidden");
+}
 
-// Toggle dropdown on profile click
-profileIcon.addEventListener("click", () => {
-    profileDropdown.classList.toggle("hidden");
-});
+// Toggle dropdown menu
+function toggleDropdown() {
+    let dropdown = document.getElementById("dropdown");
+    dropdown.classList.toggle("hidden");
+}
 
-// Close dropdown if clicked outside
-window.addEventListener("click", (e) => {
-    if (e.target !== profileIcon && !profileDropdown.contains(e.target)) {
-        profileDropdown.classList.add("hidden");
-    }
-});
-
-
-// Sample songs
+// Sample song data
 const songs = [
-    { title: "Shape of You", src: "songs/shape_of_you.mp3", art: "images/shape_of_you.jpg", lyrics: "Lyrics for Shape of You..." },
-    { title: "Blinding Lights", src: "songs/blinding_lights.mp3", art: "images/blinding_lights.jpg", lyrics: "Lyrics for Blinding Lights..." },
-    { title: "Uptown Funk", src: "songs/uptown_funk.mp3", art: "images/uptown_funk.jpg", lyrics: "Lyrics for Uptown Funk..." }
+    { title: "Song 1", explicit: false },
+    { title: "Song 2", explicit: true },
+    { title: "Song 3", explicit: false },
+    { title: "Song 4", explicit: true }
 ];
 
-let currentSongIndex = 0;
+// Search songs
+function searchSongs() {
+    let query = document.getElementById("searchBar").value.toLowerCase();
+    let resultsContainer = document.getElementById("searchResults");
+    resultsContainer.innerHTML = "";
 
-// Search function
-searchBar.addEventListener("input", () => {
-    const query = searchBar.value.toLowerCase();
-    resultsList.innerHTML = "";
-    searchResults.classList.remove("hidden");
+    let filteredSongs = songs.filter(song => song.title.toLowerCase().includes(query));
 
-    const filteredSongs = songs.filter(song => song.title.toLowerCase().includes(query));
-
-    filteredSongs.forEach((song, index) => {
-        const li = document.createElement("li");
-        li.textContent = song.title;
-        li.addEventListener("click", () => playSong(index));
-        resultsList.appendChild(li);
+    filteredSongs.forEach(song => {
+        let songElement = document.createElement("div");
+        songElement.classList.add("song");
+        songElement.innerHTML = song.title + (song.explicit ? ' <span class="explicit">E</span>' : '');
+        songElement.onclick = () => playSong(song.title);
+        resultsContainer.appendChild(songElement);
     });
-});
+}
 
 // Play song
-function playSong(index) {
-    const song = songs[index];
-    songTitle.textContent = `Playing: ${song.title}`;
-    audioPlayer.src = song.src;
-    albumArt.src = song.art;
-    lyrics.textContent = song.lyrics;
-    currentSongIndex = index;
-    playerSection.classList.remove("hidden");
-    audioPlayer.play();
+function playSong(title) {
+    document.getElementById("player").classList.remove("hidden");
+    document.getElementById("songTitle").innerText = title;
 }
 
-// Playback controls
-document.getElementById("prevBtn").addEventListener("click", () => {
-    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-    playSong(currentSongIndex);
-});
-
-document.getElementById("nextBtn").addEventListener("click", () => {
-    currentSongIndex = (currentSongIndex + 1) % songs.length;
-    playSong(currentSongIndex);
-});
-
-// Progress bar
-audioPlayer.addEventListener("timeupdate", () => {
-    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-    progressBar.value = progress;
-    timeDisplay.textContent = `${formatTime(audioPlayer.currentTime)} / ${formatTime(audioPlayer.duration)}`;
-});
-
-progressBar.addEventListener("input", () => {
-    audioPlayer.currentTime = (progressBar.value / 100) * audioPlayer.duration;
-});
-
-function formatTime(seconds) {
-    const min = Math.floor(seconds / 60);
-    const sec = Math.floor(seconds % 60).toString().padStart(2, "0");
-    return `${min}:${sec}`;
+// Like song
+function likeSong() {
+    alert("Song liked!");
 }
 
-// Theme toggle
-toggleThemeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
-});
+// Add to playlist
+function addToPlaylist() {
+    alert("Added to playlist!");
+}
