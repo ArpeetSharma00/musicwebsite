@@ -3,43 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Next-Gen Music Player</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <!-- Left: Search & Suggestions -->
-        <div class="search-section">
-            <input type="text" id="search-bar" placeholder="Search for songs...">
-            <ul id="suggestions" class="suggestions"></ul>
-        </div>
-
-        <input type="file" id="song-upload" accept="audio/*" hidden>
-<button id="upload-btn">➕ Add Song</button>
-
-
-
-        <!-- Center: Music Player -->
-        <div class="music-container">
-            <h1>🎵 Now Playing</h1>
-            <div class="player">
-                <audio id="audio-player"></audio>
-                <div class="controls">
-                    <button id="prev">⏮</button>
-                    <button id="play">▶️</button>
-                    <button id="next">⏭</button>
-                </div>
-                <p id="current-song">Now Playing: None</p>
+        <h1>My Music Player</h1>
+        <div class="player">
+            <img id="cover" src="cover.jpg" alt="Song Cover">
+            <h2 id="song-title">Song Name</h2>
+            <audio id="audio" src="song.mp3"></audio>
+            <div class="controls">
+                <button id="prev">⏮️</button>
+                <button id="play">▶️</button>
+                <button id="next">⏭️</button>
             </div>
+            <input type="range" id="progress" value="0">
         </div>
-
-        <!-- Right: Search Results -->
-        <div class="results-section">
-            <h2>Search Results</h2>
-            <ul id="search-results" class="playlist"></ul>
-        </div>
+        <ul id="playlist">
+            <li data-src="song1.mp3">Song 1</li>
+            <li data-src="song2.mp3">Song 2</li>
+            <li data-src="song3.mp3">Song 3</li>
+        </ul>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
