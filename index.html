@@ -3,29 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player</title>
+    <title>Music Website</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>My Music Player</h1>
-        <div class="player">
-            <img id="cover" src="cover.jpg" alt="Song Cover">
-            <h2 id="song-title">Song Name</h2>
-            <audio id="audio" src="song.mp3"></audio>
-            <div class="controls">
-                <button id="prev">⏮️</button>
-                <button id="play">▶️</button>
-                <button id="next">⏭️</button>
+    <header>
+        <h1>Music Hub</h1>
+        <input type="text" id="searchBar" placeholder="Search songs...">
+        <button id="profileBtn">Profile</button>
+        <button id="settingsBtn">Settings</button>
+    </header>
+
+    <main>
+        <section id="home">
+            <h2>Popular Playlists</h2>
+            <div class="playlist-container">
+                <div class="playlist">Chill Vibes</div>
+                <div class="playlist">Top Hits</div>
+                <div class="playlist">Workout Mix</div>
             </div>
-            <input type="range" id="progress" value="0">
-        </div>
-        <ul id="playlist">
-            <li data-src="song1.mp3">Song 1</li>
-            <li data-src="song2.mp3">Song 2</li>
-            <li data-src="song3.mp3">Song 3</li>
-        </ul>
-    </div>
+
+            <h2>Featured Artists</h2>
+            <div class="artist-container">
+                <div class="artist">🎤 Artist 1</div>
+                <div class="artist">🎸 Artist 2</div>
+                <div class="artist">🎧 Artist 3</div>
+            </div>
+        </section>
+
+        <section id="searchResults" class="hidden">
+            <h2>Search Results</h2>
+            <ul id="resultsList"></ul>
+        </section>
+
+        <section id="player" class="hidden">
+            <h2>Now Playing</h2>
+            <p id="songTitle"></p>
+            <audio id="audioPlayer" controls></audio>
+        </section>
+    </main>
+
     <script src="script.js"></script>
 </body>
 </html>
