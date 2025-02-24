@@ -9,6 +9,21 @@ const progressBar = document.getElementById("progressBar");
 const timeDisplay = document.getElementById("timeDisplay");
 const lyrics = document.getElementById("lyrics");
 const toggleThemeBtn = document.getElementById("toggleThemeBtn");
+const profileIcon = document.getElementById("profileIcon");
+const profileDropdown = document.getElementById("profileDropdown");
+
+// Toggle dropdown on profile click
+profileIcon.addEventListener("click", () => {
+    profileDropdown.classList.toggle("hidden");
+});
+
+// Close dropdown if clicked outside
+window.addEventListener("click", (e) => {
+    if (e.target !== profileIcon && !profileDropdown.contains(e.target)) {
+        profileDropdown.classList.add("hidden");
+    }
+});
+
 
 // Sample songs
 const songs = [
