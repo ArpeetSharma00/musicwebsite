@@ -1,71 +1,47 @@
-const audio = document.getElementById("audio");
-const playBtn = document.getElementById("play");
-const prevBtn = document.getElementById("prev");
-const nextBtn = document.getElementById("next");
-const progress = document.getElementById("progress");
-const songTitle = document.getElementById("song-title");
-const cover = document.getElementById("cover");
-const playlist = document.getElementById("playlist");
+const searchBar = document.getElementById("searchBar");
+const resultsList = document.getElementById("resultsList");
+const searchResults = document.getElementById("searchResults");
+const playerSection = document.getElementById("player");
+const songTitle = document.getElementById("songTitle");
+const audioPlayer = document.getElementById("audioPlayer");
 
+// Sample song database
 const songs = [
-    { title: "Song 1", src: "song1.mp3", cover: "cover1.jpg" },
-    { title: "Song 2", src: "song2.mp3", cover: "cover2.jpg" },
-    { title: "Song 3", src: "song3.mp3", cover: "cover3.jpg" }
+    { title: "Shape of You", src: "songs/shape_of_you.mp3" },
+    { title: "Blinding Lights", src: "songs/blinding_lights.mp3" },
+    { title: "Uptown Funk", src: "songs/uptown_funk.mp3" }
 ];
 
-let songIndex = 0;
+// Handle search
+searchBar.addEventListener("input", () => {
+    const query = searchBar.value.toLowerCase();
+    resultsList.innerHTML = "";
 
-function loadSong(song) {
-    songTitle.textContent = song.title;
-    audio.src = song.src;
-    cover.src = song.cover;
-}
+    if (query === "") {
+        searchResults.classList.add("hidden");
+        return;
+    }
 
-function playSong() {
-    audio.play();
-    playBtn.textContent = "⏸️";
-}
+    const filteredSongs = songs.filter(song => song.title.toLowerCase().includes(query));
 
-function pauseSong() {
-    audio.pause();
-    playBtn.textContent = "▶️";
-}
-
-playBtn.addEventListener("click", () => {
-    if (audio.paused) {
-        playSong();
+    if (filteredSongs.length === 0) {
+        resultsList.innerHTML = "<p>No songs found</p>";
     } else {
-        pauseSong();
+        filteredSongs.forEach(song => {
+            const li = document.createElement("li");
+            li.textContent = song.title;
+            li.addEventListener("click", () => playSong(song));
+            resultsList.appendChild(li);
+        });
     }
+
+    searchResults.classList.remove("hidden");
 });
 
-prevBtn.addEventListener("click", () => {
-    songIndex = (songIndex - 1 + songs.length) % songs.length;
-    loadSong(songs[songIndex]);
-    playSong();
-});
-
-nextBtn.addEventListener("click", () => {
-    songIndex = (songIndex + 1) % songs.length;
-    loadSong(songs[songIndex]);
-    playSong();
-});
-
-audio.addEventListener("timeupdate", () => {
-    progress.value = (audio.currentTime / audio.duration) * 100;
-});
-
-progress.addEventListener("input", () => {
-    audio.currentTime = (progress.value / 100) * audio.duration;
-});
-
-playlist.addEventListener("click", (e) => {
-    if (e.target.tagName === "LI") {
-        const song = songs.find(s => s.src === e.target.getAttribute("data-src"));
-        songIndex = songs.indexOf(song);
-        loadSong(song);
-        playSong();
-    }
-});
-
-loadSong(songs[songIndex]);
+// Play song function
+function playSong(song) {
+    songTitle.textContent = `Playing: ${song.title}`;
+    audioPlayer.src = song.src;
+    playerSection.classList.remove("hidden");
+    audioPlayer.play();
+}
