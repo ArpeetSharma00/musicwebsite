@@ -3,71 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Hub</title>
+    <title>Music Website</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Music Hub</h1>
-        <input type="text" id="searchBar" placeholder="Search songs...">
-        <button id="toggleThemeBtn">🌞/🌙</button>
-    </header>
 
-    <!-- Profile dropdown -->
-        <div class="profile-container">
-            <img src="images/profile.png" alt="Profile" id="profileIcon">
-            <div id="profileDropdown" class="dropdown hidden">
-                <a href="#">View Profile</a>
-                <a href="#">Settings</a>
-                <a href="#">Log Out</a>
-            </div>
+    <!-- Login and Signup Page -->
+    <div id="auth-container">
+        <div id="auth-box">
+            <h2>Login / Sign Up</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">Enter</button>
         </div>
-    </header>
+    </div>
 
-    <main>
-        <section id="home">
-            <h2>Popular Playlists</h2>
-            <div class="playlist-container">
-                <div class="playlist">Chill Vibes</div>
-                <div class="playlist">Top Hits</div>
-                <div class="playlist">Workout Mix</div>
+    <!-- Main Website -->
+    <div id="main-container" class="hidden">
+        <header>
+            <div class="logo" onclick="toggleDropdown()">🎵 Music</div>
+            <input type="text" id="searchBar" placeholder="Search for songs..." oninput="searchSongs()">
+            <div class="profile">👤</div>
+        </header>
+
+        <div id="dropdown" class="dropdown hidden">
+            <ul>
+                <li>Home</li>
+                <li>Trending</li>
+                <li>Library</li>
+                <li>Settings</li>
+            </ul>
+        </div>
+
+        <main>
+            <h2>Recommended Playlists</h2>
+            <div id="playlists">
+                <div class="playlist">🔥 Top Hits</div>
+                <div class="playlist">🎸 Rock Classics</div>
+                <div class="playlist">🎶 Chill Vibes</div>
             </div>
 
-            <h2>Featured Artists</h2>
-            <div class="artist-container">
+            <h2>Top Artists</h2>
+            <div id="artists">
                 <div class="artist">🎤 Artist 1</div>
-                <div class="artist">🎸 Artist 2</div>
-                <div class="artist">🎧 Artist 3</div>
+                <div class="artist">🎧 Artist 2</div>
+                <div class="artist">🥁 Artist 3</div>
             </div>
-        </section>
 
-        <section id="searchResults" class="hidden">
             <h2>Search Results</h2>
-            <ul id="resultsList"></ul>
-        </section>
+            <div id="searchResults"></div>
+        </main>
 
-        <section id="player" class="hidden">
-            <h2>Now Playing</h2>
-            <img id="albumArt" src="" alt="Album Art">
-            <p id="songTitle"></p>
-            <audio id="audioPlayer" controls></audio>
-            <div class="controls">
-                <button id="prevBtn">⏮️</button>
-                <button id="playPauseBtn">▶️</button>
-                <button id="nextBtn">⏭️</button>
-            </div>
-            <input type="range" id="progressBar" value="0">
-            <p id="timeDisplay">0:00 / 0:00</p>
-
-            <h3>Lyrics</h3>
-            <p id="lyrics">Click a song to see lyrics</p>
-
-            <h3>Create Playlist</h3>
-            <input type="text" id="playlistName" placeholder="Playlist name">
-            <button id="savePlaylistBtn">Save Playlist</button>
-            <ul id="playlistSongs"></ul>
-        </section>
-    </main>
+        <div id="player" class="hidden">
+            <p id="songTitle">Song Title</p>
+            <button onclick="likeSong()">❤️ Like</button>
+            <button onclick="addToPlaylist()">➕ Add to Playlist</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
