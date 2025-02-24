@@ -1,129 +1,71 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const audioPlayer = document.getElementById("audio-player");
-    const playButton = document.getElementById("play");
-    const prevButton = document.getElementById("prev");
-    const nextButton = document.getElementById("next");
-    const searchBar = document.getElementById("search-bar");
-    const suggestionsList = document.getElementById("suggestions");
-    const searchResultsList = document.getElementById("search-results");
-    const songUpload = document.getElementById("song-upload");
-    const currentSong = document.getElementById("current-song");
-    const uploadBtn = document.getElementById("upload-btn");
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("play");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+const progress = document.getElementById("progress");
+const songTitle = document.getElementById("song-title");
+const cover = document.getElementById("cover");
+const playlist = document.getElementById("playlist");
 
-    
-
-   
-
-    // Load songs from localStorage or set default songs
-let songs = JSON.parse(localStorage.getItem("songs")) || [
-    { title: "Song 1", src: "music/song1.mp3" },
-    { title: "Song 2", src: "music/song2.mp3" }
+const songs = [
+    { title: "Song 1", src: "song1.mp3", cover: "cover1.jpg" },
+    { title: "Song 2", src: "song2.mp3", cover: "cover2.jpg" },
+    { title: "Song 3", src: "song3.mp3", cover: "cover3.jpg" }
 ];
 
-    
+let songIndex = 0;
 
-    uploadBtn.addEventListener("click", () => songUpload.click()); // Open file picker when button is clicked
+function loadSong(song) {
+    songTitle.textContent = song.title;
+    audio.src = song.src;
+    cover.src = song.cover;
+}
 
-songUpload.addEventListener("change", () => {
-    const file = songUpload.files[0];
-    if (file) {
-        const songURL = URL.createObjectURL(file);
-        const songTitle = file.name.replace(/\.[^/.]+$/, ""); // Remove file extension
+function playSong() {
+    audio.play();
+    playBtn.textContent = "⏸️";
+}
 
-        // Add to song list
-        songs.push({ title: songTitle, src: songURL });
+function pauseSong() {
+    audio.pause();
+    playBtn.textContent = "▶️";
+}
 
-        // Update playlist & play the uploaded song
-        updatePlaylist();
-        changeSong(songs.length - 1); // Play the latest uploaded song
+playBtn.addEventListener("click", () => {
+    if (audio.paused) {
+        playSong();
+    } else {
+        pauseSong();
     }
 });
 
-// Function to update playlist UI
-function updatePlaylist() {
-    searchResultsList.innerHTML = "";
-    songs.forEach((song, index) => {
-        const listItem = document.createElement("li");
-        listItem.textContent = song.title;
-        listItem.dataset.index = index;
-        listItem.addEventListener("click", () => changeSong(index));
-        searchResultsList.appendChild(listItem);
-    });
-}
+prevBtn.addEventListener("click", () => {
+    songIndex = (songIndex - 1 + songs.length) % songs.length;
+    loadSong(songs[songIndex]);
+    playSong();
+});
 
-// Function to play the selected song
-function changeSong(index) {
-    audioPlayer.src = songs[index].src;
-    audioPlayer.play();
-}
+nextBtn.addEventListener("click", () => {
+    songIndex = (songIndex + 1) % songs.length;
+    loadSong(songs[songIndex]);
+    playSong();
+});
 
-// Load the initial playlist
-updatePlaylist();
+audio.addEventListener("timeupdate", () => {
+    progress.value = (audio.currentTime / audio.duration) * 100;
+});
 
-// Load the playlist when the page loads
-updatePlaylist();    
+progress.addEventListener("input", () => {
+    audio.currentTime = (progress.value / 100) * audio.duration;
+});
 
-    
-
-    // 🎶 Load Suggestions
-    function loadSuggestions() {
-        suggestionsList.innerHTML = "";
-        songs.forEach((song, index) => {
-            const listItem = document.createElement("li");
-            listItem.textContent = song.title;
-            listItem.dataset.index = index;
-            listItem.addEventListener("click", () => searchSong(song.title));
-            suggestionsList.appendChild(listItem);
-        });
-    }
-
-    // 🔍 Search for Songs
-    function searchSong(query) {
-        searchResultsList.innerHTML = "";
-        const filteredSongs = songs.filter(song => song.title.toLowerCase().includes(query.toLowerCase()));
-        filteredSongs.forEach((song, index) => {
-            const listItem = document.createElement("li");
-            listItem.textContent = song.title;
-            listItem.dataset.index = index;
-            listItem.addEventListener("click", () => changeSong(index));
-            searchResultsList.appendChild(listItem);
-        });
-    }
-
-    
-
-    // 🎵 Play Song
-    function playSong() {
-        audioPlayer.play();
-        playButton.innerHTML = "⏸";
-        isPlaying = true;
-    }
-
-    // ⏸ Pause Song
-    function pauseSong() {
-        audioPlayer.pause();
-        playButton.innerHTML = "▶️";
-        isPlaying = false;
-    }
-
-    // ▶️ Toggle Play/Pause
-    function togglePlay() {
-        isPlaying ? pauseSong() : playSong();
-    }
-
-    // 🔄 Change Song
-    function changeSong(index) {
-        currentIndex = index;
-        audioPlayer.src = songs[currentIndex].src;
-        currentSong.textContent = `Now Playing: ${songs[currentIndex].title}`;
+playlist.addEventListener("click", (e) => {
+    if (e.target.tagName === "LI") {
+        const song = songs.find(s => s.src === e.target.getAttribute("data-src"));
+        songIndex = songs.indexOf(song);
+        loadSong(song);
         playSong();
     }
-
-   
-    // 🔄 Initialize
-    searchBar.addEventListener("input", () => searchSong(searchBar.value));
-    playButton.addEventListener("click", togglePlay);
-    prevButton.addEventListener("click", () => changeSong(currentIndex - 1));
-    nextButton.addEventListener("click", () => changeSong(currentIndex + 1));
-    loadSuggestions();
 });
+
+loadSong(songs[songIndex]);
