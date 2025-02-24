@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Website</title>
+    <title>Music Hub</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,6 +12,7 @@
         <input type="text" id="searchBar" placeholder="Search songs...">
         <button id="profileBtn">Profile</button>
         <button id="settingsBtn">Settings</button>
+        <button id="toggleThemeBtn">🌞/🌙</button>
     </header>
 
     <main>
@@ -38,8 +39,24 @@
 
         <section id="player" class="hidden">
             <h2>Now Playing</h2>
+            <img id="albumArt" src="" alt="Album Art">
             <p id="songTitle"></p>
             <audio id="audioPlayer" controls></audio>
+            <div class="controls">
+                <button id="prevBtn">⏮️</button>
+                <button id="playPauseBtn">▶️</button>
+                <button id="nextBtn">⏭️</button>
+            </div>
+            <input type="range" id="progressBar" value="0">
+            <p id="timeDisplay">0:00 / 0:00</p>
+
+            <h3>Lyrics</h3>
+            <p id="lyrics">Click a song to see lyrics</p>
+
+            <h3>Create Playlist</h3>
+            <input type="text" id="playlistName" placeholder="Playlist name">
+            <button id="savePlaylistBtn">Save Playlist</button>
+            <ul id="playlistSongs"></ul>
         </section>
     </main>
 
