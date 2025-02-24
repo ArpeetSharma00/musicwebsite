@@ -1,67 +1,67 @@
-/* General body styling */
+/* General styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     text-align: center;
     background-color: #121212;
-    color: white; /* Set default text color to white */
+    color: white;
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Header styling */
 header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 15px;
     background: #1db954;
 }
 
-header h1, header button {
-    color: white; /* Make header text white */
-}
-
-#searchBar, #playlistName {
+#searchBar {
     padding: 8px;
     width: 40%;
     background-color: #282828;
-    color: white; /* White text for input fields */
+    color: white;
     border: 1px solid #444;
 }
 
-/* Playlist and artist cards */
-.playlist, .artist {
-    padding: 20px;
-    background: #282828;
-    border-radius: 5px;
+/* Profile dropdown */
+.profile-container {
+    position: relative;
+    display: inline-block;
     cursor: pointer;
-    color: white; /* White text */
 }
 
-/* Music player section */
-#player h2, #player p, #lyrics, #timeDisplay {
-    color: white; /* White text for player elements */
+.profile-container img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
 }
 
-/* Progress bar styling */
-input[type="range"] {
-    width: 80%;
-    accent-color: #1db954; /* Green progress bar */
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: #282828;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 10;
 }
 
-/* Light mode adjustments */
-.light-mode {
-    background-color: #f5f5f5;
-    color: #333;
+.dropdown a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s;
 }
 
-.light-mode header h1, 
-.light-mode header button {
-    color: #333; /* Dark text for light mode */
+.dropdown a:hover {
+    background-color: #1db954;
 }
 
-.light-mode #searchBar, 
-.light-mode #playlistName {
-    background-color: #fff;
-    color: #333; /* Dark text in light mode */
+.hidden {
+    display: none;
 }
