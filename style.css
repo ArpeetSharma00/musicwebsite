@@ -189,3 +189,28 @@ footer {
 }
 
 
+.close-player {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  color: white;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+  z-index: 100;
+}
+
+/* Hide player completely */
+.music-player.hidden {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Animate show/hide */
+.music-player {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
