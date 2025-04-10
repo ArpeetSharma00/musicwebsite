@@ -91,3 +91,37 @@ player.audio.addEventListener('timeupdate', () => {
 progress.addEventListener('input', () => {
   player.audio.currentTime = progress.value;
 });
+
+const musicPlayer = document.getElementById('music-player');
+const toggleBtn = document.getElementById('toggle-player');
+
+function expandPlayer() {
+  musicPlayer.classList.add('fullscreen');
+  toggleBtn.textContent = '🔽'; // show minimize icon
+}
+
+function minimizePlayer() {
+  musicPlayer.classList.remove('fullscreen');
+  toggleBtn.textContent = '🔼'; // show expand icon
+}
+
+toggleBtn.addEventListener('click', () => {
+  if (musicPlayer.classList.contains('fullscreen')) {
+    minimizePlayer();
+  } else {
+    expandPlayer();
+  }
+});
+
+// Auto-expand when song is loaded
+function loadSong(song) {
+  art.src = song.img;
+  title.textContent = song.title;
+  artist.textContent = song.artist;
+  player.audio.src = song.src;
+  player.audio.play();
+  player.playing = true;
+  playBtn.textContent = '⏸️';
+  expandPlayer();
+}
+
