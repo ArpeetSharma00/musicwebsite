@@ -10,7 +10,7 @@ const trendingSongs = [
     title: "Golden Hour",
     artist: "JVKE",
     img: "https://i.postimg.cc/B6RPF3wr/artworks-Xbx-ZOWT3w-Dfia4-Z5-5fiy-BQ-t1080x1080.jpg",
-    audio: "songs/golden-hour.mp3"
+    audio: "songs/"C:\Users\SSD\Downloads\JVKE - golden hour (official music video).mp3""
   },
   {
     title: "Drift Away",
