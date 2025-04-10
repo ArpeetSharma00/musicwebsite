@@ -1,6 +1,6 @@
 // Sample data
 const trendingSongs = [
-  { title: "Skyline Drive", artist: "Aurora", img: "https://via.placeholder.com/180" },
+  { title: "Skyline Drive", artist: "Aurora", img: "https://i.postimg.cc/B6RPF3wr/artworks-Xbx-ZOWT3w-Dfia4-Z5-5fiy-BQ-t1080x1080.jpg" },
   { title: "Golden Hour", artist: "JVKE", img: "https://via.placeholder.com/180" },
   { title: "Drift Away", artist: "Nina", img: "https://via.placeholder.com/180" },
 ];
