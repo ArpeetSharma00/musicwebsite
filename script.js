@@ -125,3 +125,25 @@ function loadSong(song) {
   expandPlayer();
 }
 
+const closeBtn = document.getElementById('close-player');
+
+// Close the player completely
+closeBtn.addEventListener('click', () => {
+  player.audio.pause();
+  musicPlayer.classList.add('hidden');
+  player.playing = false;
+  playBtn.textContent = '▶️';
+});
+
+// Show player again when a song is clicked
+function loadSong(song) {
+  art.src = song.img;
+  title.textContent = song.title;
+  artist.textContent = song.artist;
+  player.audio.src = song.src;
+  player.audio.play();
+  player.playing = true;
+  playBtn.textContent = '⏸️';
+  musicPlayer.classList.remove('hidden');
+  expandPlayer();
+}
