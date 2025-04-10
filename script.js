@@ -29,3 +29,65 @@ window.onload = () => {
   const playlistsContainer = document.getElementById("top-playlists");
   topPlaylists.forEach(pl => playlistsContainer.appendChild(createCard(pl)));
 };
+
+const player = {
+  audio: new Audio(),
+  repeat: false,
+  playing: false,
+};
+
+const playBtn = document.getElementById('play-btn');
+const repeatBtn = document.getElementById('repeat-btn');
+const progress = document.getElementById('progress');
+const art = document.getElementById('player-art');
+const title = document.getElementById('player-title');
+const artist = document.getElementById('player-artist');
+
+// Example click trigger (modify to match your song card logic)
+document.querySelectorAll('.card').forEach((card, index) => {
+  card.addEventListener('click', () => {
+    const song = {
+      title: card.querySelector('h4').innerText,
+      artist: card.querySelector('p')?.innerText || 'Unknown',
+      img: card.querySelector('img').src,
+      src: `assets/song${index + 1}.mp3` // Assume song1.mp3, song2.mp3...
+    };
+    loadSong(song);
+  });
+});
+
+function loadSong(song) {
+  art.src = song.img;
+  title.textContent = song.title;
+  artist.textContent = song.artist;
+  player.audio.src = song.src;
+  player.audio.play();
+  player.playing = true;
+  playBtn.textContent = '⏸️';
+}
+
+playBtn.addEventListener('click', () => {
+  if (player.playing) {
+    player.audio.pause();
+    playBtn.textContent = '▶️';
+  } else {
+    player.audio.play();
+    playBtn.textContent = '⏸️';
+  }
+  player.playing = !player.playing;
+});
+
+repeatBtn.addEventListener('click', () => {
+  player.repeat = !player.repeat;
+  player.audio.loop = player.repeat;
+  repeatBtn.style.color = player.repeat ? 'lightgreen' : 'white';
+});
+
+player.audio.addEventListener('timeupdate', () => {
+  progress.value = player.audio.currentTime;
+  progress.max = player.audio.duration;
+});
+
+progress.addEventListener('input', () => {
+  player.audio.currentTime = progress.value;
+});
