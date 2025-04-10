@@ -43,5 +43,19 @@
   </footer>
 
   <script src="script.js"></script>
+  <!-- Add this inside <body> before </body> -->
+<div id="music-player" class="music-player">
+  <img id="player-art" src="https://via.placeholder.com/100" alt="Album Art">
+  <div class="info">
+    <h4 id="player-title">Title</h4>
+    <p id="player-artist">Artist</p>
+    <input type="range" id="progress" value="0" step="1">
+  </div>
+  <div class="controls">
+    <button id="repeat-btn">🔁</button>
+    <button id="play-btn">▶️</button>
+  </div>
+</div>
+
 </body>
 </html>
